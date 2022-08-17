@@ -6,13 +6,18 @@ use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-    public function index(string $category)
+    public function index()
     {
-        return view('news.index', $this->getNews($category));
+        return view('news.index', $this->getAllNews());
     }
 
-    public function show(string $category, int $id)
+    public function show(int $id)
     {
-        return view('news.show', $this->getNews($category, $id));
+        return view('news.show', $this->getNewsById($id));
+    }
+
+    public function category(string $category)
+    {
+        return view('news.index', $this->getNewsByCategory($category));
     }
 }
