@@ -43,15 +43,3 @@ Route::prefix('admin')->name('admin.')->group(function () {
         'news' => AdminNewsController::class,
     ]);
 });
-
-Route::get('/hello/{name}', function ($name) {
-    return "Hello $name";
-});
-
-Route::get('/info', function () {
-    return "Страница с информацией.";
-});
-
-Route::get('/news', function () {
-    return "Здесь будут новости.";
-});
