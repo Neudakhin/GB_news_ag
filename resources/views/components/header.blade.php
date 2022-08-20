@@ -9,8 +9,10 @@
                 <nav class="col-sm-4 offset-md-1 py-4">
                     <h4 class="text-white">Меню</h4>
                     <ul class="list-unstyled">
-                        <li><a href="{{ route('news') }}" class="text-white">Новости</a></li>
-                        <li><a href="{{ route('category') }}" class="text-white">Категории</a></li>
+                        <li><a href="{{ route('news.index') }}" class="text-white">Новости</a></li>
+                        <li><a href="{{ route('category.index') }}" class="text-white">Категории</a></li>
+                        <li><a href="{{ route('orders.index') }}" class="text-white">Заказать</a></li>
+                        <li><a href="{{ route('reviews.index') }}" class="text-white">Отзывы</a></li>
                     </ul>
                 </nav>
             </div>
