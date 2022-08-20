@@ -79,4 +79,11 @@ class Controller extends BaseController
             'news' => $news,
         ];
     }
+
+    public function saveDataIntoFile(string $filename, array $data)
+    {
+        $path = __DIR__ . '/../../../storage/' . $filename . '.txt';
+        (bool)file_put_contents($path, implode('; ', $data) . PHP_EOL, FILE_APPEND);
+    }
+
 }
