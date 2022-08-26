@@ -58,7 +58,7 @@ class Controller extends BaseController
 
         return [
                 'news' => $news,
-                'categories' => $category
+                'category' => $category
             ];
     }
 
@@ -82,7 +82,7 @@ class Controller extends BaseController
 
     public function saveDataIntoFile(string $filename, array $data)
     {
-        $path = storage_path($filename . '.txt');
+        $path = __DIR__ . '/../../../storage/' . $filename . '.txt';
         (bool)file_put_contents($path, implode('; ', $data) . PHP_EOL, FILE_APPEND);
     }
 
