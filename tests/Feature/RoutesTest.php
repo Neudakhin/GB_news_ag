@@ -2,13 +2,19 @@
 
 namespace Tests\Feature;
 
+use Database\Seeders\CategorySeeder;
+use Database\Seeders\NewsSeeder;
+use Database\Seeders\SourceSeeder;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class RoutesTest extends TestCase
 {
+    use RefreshDatabase;
+
     private $faker;
 
     public function __construct(?string $name = null, array $data = [], $dataName = '')
@@ -32,6 +38,8 @@ class RoutesTest extends TestCase
 
     public function testCategoryRoutes()
     {
+        $this->seed(CategorySeeder::class);
+
         $response = $this->get('/categories');
 
         $response->assertStatus(200)
@@ -43,6 +51,11 @@ class RoutesTest extends TestCase
 
     public function testNewsRoutes()
     {
+        $this->seed([
+            SourceSeeder::class,
+            CategorySeeder::class,
+            NewsSeeder::class,
+        ]);
         $response = $this->get('/news');
 
         $response->assertStatus(200)
@@ -59,13 +72,14 @@ class RoutesTest extends TestCase
                 'news'
             ]);
 
-        $response = $this->get('/news/category/{category}');
+        $categoryTitle = DB::table('categories')->pluck('title')->first();
+        $response = $this->get("/news/category/{$categoryTitle}");
 
         $response->assertStatus(200)
             ->assertViewIs('news.index')
             ->assertViewHasAll([
                 'news',
-                'categories'
+                'category'
             ]);
     }
 
@@ -115,6 +129,12 @@ class RoutesTest extends TestCase
 
     public function testAdminRoutes()
     {
+        $this->seed([
+            SourceSeeder::class,
+            CategorySeeder::class,
+            NewsSeeder::class,
+        ]);
+
         $response = $this->get('/admin/');
 
         $response->assertStatus(200)
