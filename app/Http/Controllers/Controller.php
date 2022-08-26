@@ -15,15 +15,15 @@ class Controller extends BaseController
     public function getCategories()
     {
         $faker = Factory::create();
-        $category = [];
+        $categories = [];
 
         for ($i = 1; $i <= 5; $i++) {
-            $category[$i] = $faker->word();
+            $categories[$i] = $faker->word();
 
         }
 
         return  [
-            'categories' => $category
+            'categories' => $categories
         ];
     }
 
@@ -58,7 +58,7 @@ class Controller extends BaseController
 
         return [
                 'news' => $news,
-                'category' => $category
+                'categories' => $category
             ];
     }
 
@@ -79,4 +79,11 @@ class Controller extends BaseController
             'news' => $news,
         ];
     }
+
+    public function saveDataIntoFile(string $filename, array $data)
+    {
+        $path = storage_path($filename . '.txt');
+        (bool)file_put_contents($path, implode('; ', $data) . PHP_EOL, FILE_APPEND);
+    }
+
 }

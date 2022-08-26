@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class CategoriesController extends Controller
 {
     public function index()
     {
-        return view('category.index', $this->getCategories());
+        return view('categories.index', $this->getCategories());
     }
 }
