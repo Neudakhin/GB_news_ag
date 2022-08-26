@@ -26,7 +26,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->name('index');
 
     Route::resources([
-        'category' => AdminCategoryController::class,
+        'categories' => AdminCategoryController::class,
         'news' => AdminNewsController::class,
     ]);
 });
@@ -34,8 +34,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::get('/', [WelcomeController::class, 'index'])
     ->name('welcome');
 
-Route::get('/category', [CategoryController::class, 'index'])
-        ->name('category.index');
+Route::get('/categories', [CategoryController::class, 'index'])
+        ->name('categories.index');
 
 Route::prefix('news')->name('news.')->group(function () {
     Route::get('/', [NewsController::class, 'index'])
@@ -44,8 +44,8 @@ Route::prefix('news')->name('news.')->group(function () {
     Route::get('/{id}', [NewsController::class, 'show'])
         ->name('show');
 
-    Route::get('/category/{category}', [NewsController::class, 'category'])
-        ->name('category');
+    Route::get('/categories/{category}', [NewsController::class, 'category'])
+        ->name('categories');
 });
 
 Route::prefix('orders')->name('orders.')->group(function () {

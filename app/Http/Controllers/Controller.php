@@ -15,15 +15,15 @@ class Controller extends BaseController
     public function getCategories()
     {
         $faker = Factory::create();
-        $category = [];
+        $categories = [];
 
         for ($i = 1; $i <= 5; $i++) {
-            $category[$i] = $faker->word();
+            $categories[$i] = $faker->word();
 
         }
 
         return  [
-            'categories' => $category
+            'categories' => $categories
         ];
     }
 
