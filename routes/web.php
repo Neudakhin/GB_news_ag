@@ -8,6 +8,7 @@ use App\Http\Controllers\WelcomeController;
 use \App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use \App\Http\Controllers\Admin\CategoryController as AdminCategoriesController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +21,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/test', function () {
+    dd(\App\Models\Category::getAll());
+});
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', AdminIndexController::class)
         ->name('index');

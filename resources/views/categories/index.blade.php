@@ -4,8 +4,8 @@
 <ul class="list-group list-group-flush">
     @forelse($categories as $category)
         <li class="list-group-item">
-            <a href="{{ route('news.category',[$category]) }}">
-                {{ $category }}
+            <a href="{{ route('news.category',[$category->title]) }}">
+                {{ $category->title }}
             </a>
         </li>
     @empty
