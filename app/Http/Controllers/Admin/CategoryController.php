@@ -5,16 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+class CategoryController extends Controller
 {
     public function index()
     {
-        return view('admin.categories.index', $this->getCategories());
+        return view('admin.category.index', $this->getCategories());
     }
 
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.category.create');
     }
 
     public function store(Request $request)
@@ -29,7 +29,7 @@ class CategoriesController extends Controller
 
     public function edit($id)
     {
-        return view('admin.categories.edit');
+        return view('admin.category.edit');
     }
 
     /**
