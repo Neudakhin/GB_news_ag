@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\WelcomeController;
 use \App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
-use \App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use \App\Http\Controllers\Admin\CategoriesController as AdminCategoriesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +26,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->name('index');
 
     Route::resources([
-        'category' => AdminCategoryController::class,
+        'categories' => AdminCategoriesController::class,
         'news' => AdminNewsController::class,
     ]);
 });
@@ -34,8 +34,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::get('/', [WelcomeController::class, 'index'])
     ->name('welcome');
 
-Route::get('/category', [CategoryController::class, 'index'])
-        ->name('category.index');
+Route::get('/categories', [CategoriesController::class, 'index'])
+        ->name('categories.index');
 
 Route::prefix('news')->name('news.')->group(function () {
     Route::get('/', [NewsController::class, 'index'])

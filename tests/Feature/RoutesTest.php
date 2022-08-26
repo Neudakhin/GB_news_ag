@@ -32,10 +32,10 @@ class RoutesTest extends TestCase
 
     public function testCategoryRoutes()
     {
-        $response = $this->get('/category');
+        $response = $this->get('/categories');
 
         $response->assertStatus(200)
-            ->assertViewIs('category.index')
+            ->assertViewIs('categories.index')
             ->assertViewHasAll([
                 'categories'
             ]);
@@ -65,7 +65,7 @@ class RoutesTest extends TestCase
             ->assertViewIs('news.index')
             ->assertViewHasAll([
                 'news',
-                'category'
+                'categories'
             ]);
     }
 
@@ -136,20 +136,20 @@ class RoutesTest extends TestCase
         $response->assertStatus(200)
             ->assertViewIs('admin.news.edit');
 
-        $response = $this->get('/admin/category');
+        $response = $this->get('/admin/categories');
 
         $response->assertStatus(200)
-            ->assertViewIs('admin.category.index')
+            ->assertViewIs('admin.categories.index')
             ->assertViewHasAll(['categories']);
 
-        $response = $this->get('/admin/category/create');
+        $response = $this->get('/admin/categories/create');
 
         $response->assertStatus(200)
-            ->assertViewIs('admin.category.create');
+            ->assertViewIs('admin.categories.create');
 
-        $response = $this->get('/admin/category/1/edit');
+        $response = $this->get('/admin/categories/1/edit');
 
         $response->assertStatus(200)
-            ->assertViewIs('admin.category.edit');
+            ->assertViewIs('admin.categories.edit');
     }
 }

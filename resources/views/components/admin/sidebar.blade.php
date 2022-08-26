@@ -7,7 +7,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.category.index') }}">
+            <a class="nav-link" href="{{ route('admin.categories.index') }}">
                 <span data-feather="folder" class="align-text-bottom"></span>
                 Категории
             </a>
