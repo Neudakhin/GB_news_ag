@@ -7,7 +7,6 @@ use Database\Seeders\NewsSeeder;
 use Database\Seeders\SourceSeeder;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 

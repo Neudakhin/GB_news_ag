@@ -22,7 +22,6 @@ class NewsSeeder extends Seeder
         $categoriesIds = DB::table('categories')
             ->get()
             ->pluck('id');
-        $cntCatIds = $categoriesIds->count();
 
         $sourcesIds = DB::table('sources')
             ->get()

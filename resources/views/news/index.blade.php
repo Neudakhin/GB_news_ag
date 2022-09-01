@@ -30,4 +30,5 @@
         Нет записей.
     @endforelse
 </div>
+{{ $news->links() }}
 @endsection

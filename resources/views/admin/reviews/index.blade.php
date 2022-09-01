@@ -1,39 +1,40 @@
 @extends('layouts.admin')
 @section('content')
     <div class="d-flex justify-content-between mt-4 mb-2">
-        <h2>Категории</h2>
-        <a href="{{ route('admin.categories.create') }}" class="btn btn-success align-self-start">Добавить категорию</a>
+        <h2>Отзывы</h2>
+        <a href="{{ route('admin.reviews.create') }}" class="btn btn-success align-self-start">Добавить отзыв</a>
     </div>
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Название</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Отзыв</th>
                 <th scope="col">Действия</th>
             </tr>
             </thead>
             <tbody>
-            @forelse($categories as $category)
+            @forelse($reviews as $review)
                 <tr>
-                    <td>{{ $category->id }}</td>
-                    <td>{{ $category->title }}</td>
+                    <td>{{ $review->id }}</td>
+                    <td>{{ $review->name }}</td>
+                    <td>{{ $review->text }}</td>
                     <td>
-                        <a href="{{ route('admin.categories.edit', $category) }}">Ред.</a>
-                        <form action="{{ route('admin.categories.destroy', $category) }}" method="POST">
+                        <a href="{{ route('admin.reviews.edit', $review) }}">Ред.</a>
+                        <form action="{{ route('admin.reviews.destroy', $review) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit">Уд.</button>
                         </form>
-                    </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3">Нет данных</td>
+                    <td colspan="4">Нет данных</td>
                 </tr>
             @endforelse
             </tbody>
         </table>
     </div>
-    {{ $categories->links() }}
+    {{ $reviews->links() }}
 @endsection

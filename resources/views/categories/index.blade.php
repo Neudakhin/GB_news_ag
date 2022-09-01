@@ -12,4 +12,5 @@
         Нет категорий.
     @endforelse
 </ul>
+{{ $categories->links() }}
 @endsection

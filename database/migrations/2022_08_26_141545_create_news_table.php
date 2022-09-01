@@ -30,8 +30,8 @@ return new class extends Migration
             $table->string('author')->nullable();
             $table->text('text')->nullable();
             $table->enum('status', [
-                News::DRAFT, News::ACTIVE, News::DISABLED
-            ])->default(News::DRAFT);
+                News::STATUSES
+            ])->default(News::STATUSES[0]);
             $table->timestamps();
 
             $table->index('title');

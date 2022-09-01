@@ -1,6 +1,9 @@
 @extends('layouts.admin')
 @section('content')
-    <h2>Новости</h2>
+    <div class="d-flex justify-content-between mt-4 mb-2">
+        <h2>Новости</h2>
+        <a href="{{ route('admin.news.create') }}" class="btn btn-success align-self-start">Добавить новость</a>
+    </div>
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
@@ -20,8 +23,15 @@
                     <td>{{ $item->title }}</td>
                     <td>{{ $item->author }}</td>
                     <td>{{ $item->created_at }}</td>
-                    <td>DRAFT</td>
-                    <td><a href="#">Ред.</a> <a href="#">Уд.</a></td>
+                    <td>{{ $item->status }}</td>
+                    <td>
+                        <a href="{{ route('admin.news.edit', $item) }}">Ред.</a>
+                        <form action="{{ route('admin.news.destroy', $item) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Уд.</button>
+                        </form>
+                    </td>
                 </tr>
                 @empty
                     <tr>
@@ -31,4 +41,5 @@
             </tbody>
         </table>
     </div>
+    {{ $news->links() }}
 @endsection
