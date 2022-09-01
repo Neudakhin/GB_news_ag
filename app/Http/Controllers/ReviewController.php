@@ -44,7 +44,7 @@ class ReviewController extends Controller
             ->fill($data)
             ->save();
 
-        return response()->redirectToRoute('reviews.create')
+        return redirect()->route('reviews.create')
             ->setStatusCode(201);
     }
 

@@ -36,11 +36,12 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('_token');
+
         $order = (new Order)
             ->fill($data)
             ->saveOrFail();
 
-        return response()->redirectToRoute('orders.create')
+        return redirect()->route('orders.create')
             ->setStatusCode(201);
     }
 

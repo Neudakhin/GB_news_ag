@@ -45,7 +45,8 @@ class OrderController extends Controller
             ->fill($data)
             ->save();
 
-        return redirect()->route('admin.orders.index');
+        return redirect()->route('admin.orders.index')
+            ->setStatusCode(201);
     }
 
     /**

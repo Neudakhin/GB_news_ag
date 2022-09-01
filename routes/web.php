@@ -51,7 +51,7 @@ Route::prefix('news')->name('news.')->group(function () {
     Route::get('/{id}', [NewsController::class, 'show'])
         ->name('show');
 
-    Route::get('/category/{category}', [NewsController::class, 'category'])
+    Route::get('/category/{id}', [NewsController::class, 'category'])
         ->name('category');
 });
 

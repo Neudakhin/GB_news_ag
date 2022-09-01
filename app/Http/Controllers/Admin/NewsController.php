@@ -39,7 +39,8 @@ class NewsController extends Controller
             ->fill($data)
             ->saveOrFail();
 
-        return redirect()->route('admin.news.index');
+        return redirect()->route('admin.news.index')
+            ->setStatusCode(201);
     }
 
     /**

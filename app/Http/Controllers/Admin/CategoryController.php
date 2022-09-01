@@ -29,7 +29,8 @@ class CategoryController extends Controller
             ->fill($data)
             ->save();
 
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')
+            ->setStatusCode(201);
     }
 
     public function show($id)

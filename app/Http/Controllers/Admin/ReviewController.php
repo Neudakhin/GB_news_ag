@@ -45,7 +45,8 @@ class ReviewController extends Controller
             ->fill($data)
             ->save();
 
-        return redirect()->route('admin.reviews.index');
+        return redirect()->route('admin.reviews.index')
+            ->setStatusCode(201);
     }
 
     /**

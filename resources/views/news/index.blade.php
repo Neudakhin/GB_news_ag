@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
-<h2>Новости @isset($category)- {{ $category }}@endif</h2>
+<h2>Новости @isset($category)- {{ $category->title }}@endif</h2>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     @forelse($news as $item)
     <div class="col">
