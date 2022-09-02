@@ -18,7 +18,7 @@
                 <select class="form-select" name="category_id" id="category_id">
                     <option selected disabled>Выберите категорию</option>
                     @foreach($categories as $category)
-                        <option value="{{ $category->id }}" @if($news->category_id == $category->id) selected @endif>{{ $category->title }}</option>
+                        <option value="{{ $category->id }}" @selected($news->category_id == $category->id)>{{ $category->title }}</option>
                     @endforeach
                 </select>
             </div>
@@ -27,7 +27,7 @@
                 <select class="form-select" name="status" id="status">
                     <option selected disabled>Выберите статус</option>
                     @foreach($statuses as $status)
-                        <option value="{{ $status }}" @if($news->status == $status) selected @endif>{{ $status }}</option>
+                        <option value="{{ $status }}" @selected($news->status == $status)>{{ $status }}</option>
                     @endforeach
                 </select>
             </div>
