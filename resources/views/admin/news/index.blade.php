@@ -14,12 +14,12 @@
             </tr>
             </thead>
             <tbody>
-                @forelse($news as $key => $value)
+                @forelse($news as $item)
                 <tr>
-                    <td>{{ $key }}</td>
-                    <td>{{ $value['title'] }}</td>
-                    <td>{{ $value['author'] }}</td>
-                    <td>{{ $value['created_at'] }}</td>
+                    <td>{{ $item->id }}</td>
+                    <td>{{ $item->title }}</td>
+                    <td>{{ $item->author }}</td>
+                    <td>{{ $item->created_at }}</td>
                     <td>DRAFT</td>
                     <td><a href="#">Ред.</a> <a href="#">Уд.</a></td>
                 </tr>

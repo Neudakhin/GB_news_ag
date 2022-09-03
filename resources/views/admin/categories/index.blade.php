@@ -11,10 +11,10 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($categories as $key => $value)
+            @forelse($categories as $category)
                 <tr>
-                    <td>{{ $key }}</td>
-                    <td>{{ $value }}</td>
+                    <td>{{ $category->id }}</td>
+                    <td>{{ $category->title }}</td>
                     <td><a href="#">Ред.</a> <a href="#">Уд.</a></td>
                 </tr>
             @empty
