@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <h2 class="mt-4 mb-2">Добавление отзыва</h2>
+    @include('components.inc.message')
     <form action="{{ route('admin.reviews.store') }}" method="POST" >
         @csrf
         <div class="d-flex align-items-start flex-column">

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
+use App\Http\Requests\Reviews\CreateRequest;
 use App\Models\Review;
 use Illuminate\Http\Request;
 
@@ -34,14 +34,13 @@ class ReviewController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $data = $request->except('_token');
         $review = (new Review)
-            ->fill($data)
+            ->fill($request->validated())
             ->save();
 
         return redirect()->route('reviews.create')

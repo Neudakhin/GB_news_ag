@@ -91,7 +91,7 @@ class OrdersRoutesTest extends TestCase
             'description' => $order->description,
         ];
 
-        $data['description'] = $this->faker->title();
+        $data['description'] = $this->faker->realText();
 
         $response = $this->put("/admin/orders/$order->id", $data);
 

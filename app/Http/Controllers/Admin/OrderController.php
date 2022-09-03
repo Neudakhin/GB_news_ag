@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Orders\CreateRequest;
+use App\Http\Requests\Admin\Orders\EditRequest;
 use App\Models\Order;
-use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -34,19 +35,25 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $data = $request->except('_token');
+        $order = (new Order)->fill($request->validated());
 
-        $order = (new Order)
-            ->fill($data)
-            ->save();
-
-        return redirect()->route('admin.orders.index')
-            ->setStatusCode(201);
+        if ($order->save()) {
+            return redirect()->route('admin.orders.index')
+                ->setStatusCode(201)
+                ->with([
+                    'type' => 'success',
+                    'message' => __('messages.admin.orders.create.success'),
+                ]);
+        }
+        return back()->with([
+            'type' => 'danger',
+            'message' => __('messages.admin.orders.create.fail'),
+        ]);
     }
 
     /**
@@ -76,18 +83,26 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param EditRequest $request
      * @param Order $order
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Order $order)
+    public function update(EditRequest $request, Order $order)
     {
-        $data = $request->except('_token');
+        $order->fill($request->validated());
 
-        $order->fill($data)
-            ->save();
+        if ($order->save()) {
+            return redirect()->route('admin.orders.index')
+                ->with([
+                    'type' => 'success',
+                    'message' => __('messages.admin.orders.update.success'),
+                ]);
+        }
 
-        return redirect()->route('admin.orders.index');
+        return back()->with([
+            'type' => 'danger',
+            'message' => __('messages.admin.orders.update.fail'),
+        ]);
     }
 
     /**
@@ -98,8 +113,17 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        $order->delete();
+        if ($order->delete()) {
+            return redirect()->route('admin.orders.index')
+                ->with([
+                    'type' => 'success',
+                    'message' => __('messages.admin.orders.destroy.success'),
+                ]);
+        }
 
-        return redirect()->route('admin.orders.index');
+        return back()->with([
+            'type' => 'danger',
+            'message' => __('messages.admin.orders.destroy.fail'),
+        ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Orders\CreateRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -30,15 +31,14 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Throwable
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $data = $request->except('_token');
-
         $order = (new Order)
-            ->fill($data)
+            ->fill($request->validated())
             ->saveOrFail();
 
         return redirect()->route('orders.create')

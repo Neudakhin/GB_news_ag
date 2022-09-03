@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Categories\CreateRequest;
+use App\Http\Requests\Admin\Categories\EditRequest;
 use App\Models\Category;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -21,16 +22,23 @@ class CategoryController extends Controller
         return view('admin.categories.create');
     }
 
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $data = $request->except('_token');
+        $category = (new Category())->fill($request->validated());
 
-        $category = (new Category())
-            ->fill($data)
-            ->save();
+        if ($category->save()) {
+            return redirect()->route('admin.categories.index')
+                ->setStatusCode(201)
+                ->with([
+                    'type' => 'success',
+                    'message' => __('messages.admin.categories.create.success'),
+                ]);
+        }
+        return back()->with([
+                'type' => 'danger',
+                'message' => __('messages.admin.categories.create.fail'),
+            ]);
 
-        return redirect()->route('admin.categories.index')
-            ->setStatusCode(201);
     }
 
     public function show($id)
@@ -48,18 +56,26 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param EditRequest $request
      * @param Category $category
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Category $category)
+    public function update(EditRequest $request, Category $category)
     {
-        $data = $request->except('_token');
+        $category->fill($request->validated());
 
-        $category->fill($data)
-            ->save();
+        if ($category->save()) {
+            return redirect()->route('admin.categories.index')
+                ->with([
+                    'type' => 'success',
+                    'message' => __('messages.admin.categories.update.success'),
+                ]);
+        }
 
-        return redirect()->route('admin.categories.index');
+        return back()->with([
+            'type' => 'danger',
+            'message' => __('messages.admin.categories.update.fail'),
+        ]);
     }
 
     /**
@@ -70,8 +86,17 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
+        if ($category->delete()) {
+            return redirect()->route('admin.categories.index')
+                ->with([
+                    'type' => 'success',
+                    'message' => __('messages.admin.categories.destroy.success'),
+                ]);
+        }
 
-        return redirect()->route('admin.categories.index');
+        return back()->with([
+            'type' => 'danger',
+            'message' => __('messages.admin.categories.destroy.fail'),
+        ]);
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Reviews\CreateRequest;
+use App\Http\Requests\Admin\Reviews\EditRequest;
 use App\Models\Review;
 use Illuminate\Http\Request;
 
@@ -34,19 +36,25 @@ class ReviewController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $data = $request->except('_token');
+        $review = (new Review)->fill($request->validated());
 
-        $review = (new Review)
-            ->fill($data)
-            ->save();
-
-        return redirect()->route('admin.reviews.index')
-            ->setStatusCode(201);
+        if ($review->save()) {
+            return redirect()->route('admin.reviews.index')
+                ->setStatusCode(201)
+                ->with([
+                    'type' => 'success',
+                    'message' => __('messages.admin.reviews.create.success'),
+                ]);
+        }
+        return back()->with([
+            'type' => 'danger',
+            'message' => __('messages.admin.reviews.create.fail'),
+        ]);
     }
 
     /**
@@ -76,18 +84,25 @@ class ReviewController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param EditRequest $request
+     * @param Review $review
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Review $review)
+    public function update(EditRequest $request, Review $review)
     {
-        $data = $request->except('_token');
+        $review->fill($request->validated());
 
-        $review->fill($data)
-            ->save();
-
-        return redirect()->route('admin.reviews.index');
+        if ($review->save()) {
+            return redirect()->route('admin.reviews.index')
+                ->with([
+                    'type' => 'success',
+                    'message' => __('messages.admin.reviews.update.success'),
+                ]);
+        }
+        return back()->with([
+            'type' => 'danger',
+            'message' => __('messages.admin.reviews.update.fail'),
+        ]);
     }
 
     /**
@@ -98,8 +113,16 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        $review->delete();
-
-        return redirect()->route('admin.reviews.index');
+        if ($review->delete()) {
+            return redirect()->route('admin.reviews.index')
+                ->with([
+                    'type' => 'success',
+                    'message' => __('messages.admin.reviews.destroy.success'),
+                ]);
+        }
+        return back()->with([
+            'type' => 'danger',
+            'message' => __('messages.admin.reviews.destroy.fail'),
+        ]);
     }
 }

@@ -22,7 +22,7 @@ class ReviewSeeder extends Seeder
         for ($i = 0; $i < 10; $i++) {
             $data[] = [
                 'name' => $faker->userName(),
-                'text' => $faker->realText(),
+                'text' => $faker->realTextBetween(10, 200),
                 'created_at' => now(),
                 'updated_at' => now(),
             ];

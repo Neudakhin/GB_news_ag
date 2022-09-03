@@ -4,6 +4,7 @@
         <h2>Отзывы</h2>
         <a href="{{ route('admin.reviews.create') }}" class="btn btn-success align-self-start">Добавить отзыв</a>
     </div>
+    @include('components.inc.message')
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>

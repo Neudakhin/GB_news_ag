@@ -6,14 +6,19 @@ use Illuminate\View\Component;
 
 class Alert extends Component
 {
+    public string $type;
+    public string $message;
+
     /**
      * Create a new component instance.
      *
-     * @return void
+     * @param string $type
+     * @param string $message
      */
-    public function __construct()
+    public function __construct(string $type, string $message)
     {
-        //
+        $this->type = $type;
+        $this->message = $message;
     }
 
     /**

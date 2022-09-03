@@ -24,7 +24,7 @@ class OrderSeeder extends Seeder
                 'name' => $faker->userName(),
                 'phone' => $faker->phoneNumber(),
                 'email' => $faker->email(),
-                'description' => $faker->realText(),
+                'description' => $faker->realTextBetween(10, 200),
                 'created_at' => now(),
                 'updated_at' => now(),
             ];

@@ -4,6 +4,7 @@
         <h2>Новости</h2>
         <a href="{{ route('admin.news.create') }}" class="btn btn-success align-self-start">Добавить новость</a>
     </div>
+    @include('components.inc.message')
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
