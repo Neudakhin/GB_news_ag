@@ -11,7 +11,8 @@ class CategoryController extends Controller
     public function index()
     {
         return view('admin.categories.index',  [
-            'categories' => Category::getAll()
+            'categories' => Category::query()
+                ->paginate(config('pagination.admin.categories')),
         ]);
     }
 
@@ -22,7 +23,14 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $data = $request->except('_token');
+
+        $category = (new Category())
+            ->fill($data)
+            ->save();
+
+        return redirect()->route('admin.categories.index')
+            ->setStatusCode(201);
     }
 
     public function show($id)
@@ -30,31 +38,40 @@ class CategoryController extends Controller
         //
     }
 
-    public function edit($id)
+    public function edit(Category $category)
     {
-        return view('admin.categories.edit');
+        return view('admin.categories.edit', [
+            'category' => $category
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $data = $request->except('_token');
+
+        $category->fill($data)
+            ->save();
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->route('admin.categories.index');
     }
 }

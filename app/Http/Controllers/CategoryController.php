@@ -10,7 +10,8 @@ class CategoryController extends Controller
     public function index()
     {
         return view('categories.index', [
-            'categories' => Category::getAll()
+            'categories' => Category::query()
+                ->paginate(config('pagination.categories')),
         ]);
     }
 }

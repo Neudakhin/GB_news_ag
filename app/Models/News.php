@@ -4,35 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
 
 class News extends Model
 {
     use HasFactory;
 
-    public const DRAFT = 'DRAFT';
-    public const ACTIVE = 'ACTIVE';
-    public const DISABLED = 'DISABLED';
+    public const STATUSES = [
+        'DRAFT',
+        'ACTIVE',
+        'DISABLED'
+    ];
 
-    public static function getAll()
-    {
-        return DB::table('news')
-            ->get();
-    }
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at',
+    ];
 
-    public static function getById(int $id)
+    public function category(): BelongsTo
     {
-        return DB::table('news')
-            ->where('id', '=', $id)
-            ->first();
-    }
-
-    public static function getByCategory(string $category)
-    {
-        return DB::table('news')
-            ->join('categories', 'news.category_id', '=', 'categories.id')
-            ->where('categories.title', '=', $category)
-            ->select('news.*')
-            ->get();
+        return $this->belongsTo(Category::class);
     }
 }

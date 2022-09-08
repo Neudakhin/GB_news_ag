@@ -2,13 +2,15 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\OrdersController;
-use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\WelcomeController;
 use \App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use \App\Http\Controllers\Admin\CategoryController as AdminCategoriesController;
-use Illuminate\Support\Facades\DB;
+use \App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use \App\Http\Controllers\Admin\ReviewController as AdminReviewController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,8 +24,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/test', function () {
-    dd(\App\Models\Category::getAll());
 });
+
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', AdminIndexController::class)
         ->name('index');
@@ -31,6 +33,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resources([
         'categories' => AdminCategoriesController::class,
         'news' => AdminNewsController::class,
+        'orders' => AdminOrderController::class,
+        'reviews' => AdminReviewController::class,
     ]);
 });
 
@@ -47,24 +51,11 @@ Route::prefix('news')->name('news.')->group(function () {
     Route::get('/{id}', [NewsController::class, 'show'])
         ->name('show');
 
-    Route::get('/category/{category}', [NewsController::class, 'category'])
+    Route::get('/category/{id}', [NewsController::class, 'category'])
         ->name('category');
 });
 
-Route::prefix('orders')->name('orders.')->group(function () {
-    Route::get('/', [OrdersController::class, 'index'])
-        ->name('index');
-    Route::get('/create', [OrdersController::class, 'create'])
-        ->name('create');
-    Route::post('/store', [OrdersController::class, 'store'])
-        ->name('store');
-});
-
-Route::prefix('reviews')->name('reviews.')->group(function () {
-    Route::get('/', [ReviewsController::class, 'index'])
-        ->name('index');
-    Route::get('/create', [ReviewsController::class, 'create'])
-        ->name('create');
-    Route::post('/store', [ReviewsController::class, 'store'])
-        ->name('store');
-});
+Route::resources([
+    'orders' => OrderController::class,
+    'reviews' => ReviewController::class,
+]);

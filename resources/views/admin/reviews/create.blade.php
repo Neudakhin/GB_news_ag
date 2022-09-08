@@ -1,7 +1,7 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 @section('content')
-    <h2>Форма отзывов</h2>
-    <form method="post" action="{{ route('reviews.store') }}">
+    <h2 class="mt-4 mb-2">Добавление отзыва</h2>
+    <form action="{{ route('admin.reviews.store') }}" method="POST" >
         @csrf
         <div class="d-flex align-items-start flex-column">
             <div class="col-6">
