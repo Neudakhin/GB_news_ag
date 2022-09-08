@@ -21,13 +21,14 @@
                     <td>{{ $review->id }}</td>
                     <td>{{ $review->name }}</td>
                     <td>{{ $review->text }}</td>
-                    <td>
-                        <a href="{{ route('admin.reviews.edit', $review) }}">Ред.</a>
+                    <td class="col-1">
+                        <a class="btn btn-success mb-1 w-100" href="{{ route('admin.reviews.edit', $review) }}">Ред.</a>
                         <form action="{{ route('admin.reviews.destroy', $review) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Уд.</button>
+                            <button class="btn btn-danger w-100" type="submit">Уд.</button>
                         </form>
+                    </td>
                 </tr>
             @empty
                 <tr>

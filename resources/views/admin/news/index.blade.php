@@ -25,12 +25,12 @@
                     <td>{{ $item->author }}</td>
                     <td>{{ $item->created_at }}</td>
                     <td>{{ $item->status }}</td>
-                    <td>
-                        <a href="{{ route('admin.news.edit', $item) }}">Ред.</a>
+                    <td class="col-1">
+                        <a class="btn btn-success mb-1 w-100" href="{{ route('admin.news.edit', $item) }}">Ред.</a>
                         <form action="{{ route('admin.news.destroy', $item) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Уд.</button>
+                            <button class="btn btn-danger w-100" type="submit">Уд.</button>
                         </form>
                     </td>
                 </tr>

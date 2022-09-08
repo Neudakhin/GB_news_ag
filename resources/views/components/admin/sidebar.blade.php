@@ -3,8 +3,6 @@
         <li class="nav-item">
             <a class="nav-link @if(route('admin.index') == url()->current())active @endif" aria-current="page" href="{{ route('admin.index') }}">
                 <span data-feather="home" class="align-text-bottom"></span>
-
-
                 Панель управления
             </a>
         </li>
@@ -22,14 +20,20 @@
         </li>
         <li class="nav-item">
             <a class="nav-link @if(route('admin.reviews.index') == url()->current())active @endif" href="{{ route('admin.reviews.index') }}">
-                <span data-feather="file" class="align-text-bottom"></span>
+                <span data-feather="message-circle" class="align-text-bottom"></span>
                 Отзывы
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link @if(route('admin.orders.index') == url()->current())active @endif" href="{{ route('admin.orders.index') }}">
-                <span data-feather="file" class="align-text-bottom"></span>
+                <span data-feather="shopping-cart" class="align-text-bottom"></span>
                 Заказы
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @if(route('admin.users.index') == url()->current())active @endif" href="{{ route('admin.users.index') }}">
+                <span data-feather="users" class="align-text-bottom"></span>
+                Пользователи
             </a>
         </li>
     </ul>
