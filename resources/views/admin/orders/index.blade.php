@@ -4,6 +4,7 @@
         <h2>Заказы</h2>
         <a href="{{ route('admin.orders.create') }}" class="btn btn-success align-self-start">Добавить заказ</a>
     </div>
+    @include('components.inc.message')
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>

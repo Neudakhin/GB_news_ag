@@ -4,6 +4,7 @@
         <h2>Категории</h2>
         <a href="{{ route('admin.categories.create') }}" class="btn btn-success align-self-start">Добавить категорию</a>
     </div>
+    @include('components.inc.message')
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>

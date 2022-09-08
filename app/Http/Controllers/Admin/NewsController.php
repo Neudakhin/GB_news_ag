@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\News\CreateRequest;
+use App\Http\Requests\Admin\News\EditRequest;
 use App\Models\Category;
 use App\Models\News;
-use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
@@ -28,19 +29,26 @@ class NewsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Throwable
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $data = $request->except('_token');
+        $news = (new News)->fill($request->validated());
 
-        $news = (new News)
-            ->fill($data)
-            ->saveOrFail();
-
-        return redirect()->route('admin.news.index')
-            ->setStatusCode(201);
+        if ($news->save()) {
+            return redirect()->route('admin.news.index')
+                ->setStatusCode(201)
+                ->with([
+                    'type' => 'success',
+                    'message' => __('messages.admin.news.create.success'),
+                ]);
+        }
+        return back()->with([
+            'type' => 'danger',
+            'message' => __('messages.admin.news.create.fail'),
+        ]);
     }
 
     /**
@@ -66,18 +74,25 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param EditRequest $request
      * @param News $news
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, News $news)
+    public function update(EditRequest $request, News $news)
     {
-        $data = $request->except('_token');
+        $news->fill($request->validated());
 
-        $news->fill($data)
-            ->save();
-
-        return redirect()->route('admin.news.index');
+        if ($news->save()) {
+            return redirect()->route('admin.news.index')
+                ->with([
+                    'type' => 'success',
+                    'message' => __('messages.admin.news.update.success'),
+                ]);
+        }
+        return back()->with([
+            'type' => 'danger',
+            'message' => __('messages.admin.news.update.fail'),
+        ]);
     }
 
     /**
@@ -88,8 +103,16 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        $news->delete();
-
-        return redirect()->route('admin.news.index');
+        if ($news->delete()) {
+            return redirect()->route('admin.news.index')
+                ->with([
+                    'type' => 'success',
+                    'message' => __('messages.admin.news.destroy.success'),
+                ]);
+        }
+        return back()->with([
+            'type' => 'danger',
+            'message' => __('messages.admin.news.destroy.fail'),
+        ]);
     }
 }

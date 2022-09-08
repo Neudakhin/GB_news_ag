@@ -34,7 +34,7 @@ class NewsSeeder extends Seeder
                     'source_id' => $sourcesIds->random(),
                     'title' => $faker->jobTitle(),
                     'author' => $faker->userName(),
-                    'text' => $faker->realText(250),
+                    'text' => $faker->realTextBetween(10, 200),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];

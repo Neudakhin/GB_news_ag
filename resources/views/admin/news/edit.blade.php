@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <h2 class="mt-4 mb-2">Добавление новости</h2>
+    @include('components.inc.message')
     <form action="{{ route('admin.news.update', $news) }}" method="POST" >
         @csrf
         @method('PUT')

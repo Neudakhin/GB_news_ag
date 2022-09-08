@@ -22,7 +22,7 @@ class CategorySeeder extends Seeder
         for($i = 0; $i < 10; $i++) {
             $data[] = [
                 'title' => $faker->jobTitle(),
-                'description' => $faker->realText(70),
+                'description' => $faker->realTextBetween(10, 200),
                 'created_at' => now(),
                 'updated_at' => now(),
             ];

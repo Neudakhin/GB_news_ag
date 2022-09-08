@@ -87,7 +87,7 @@ class CategoriesRoutesTest extends TestCase
             'description' => $category->text,
         ];
 
-        $data['description'] = $this->faker->title();
+        $data['description'] = $this->faker->realText();
 
         $response = $this->put("/admin/categories/$category->id", $data);
 
