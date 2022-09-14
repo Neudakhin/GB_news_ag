@@ -10,6 +10,7 @@ use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use \App\Http\Controllers\Admin\CategoryController as AdminCategoriesController;
 use \App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use \App\Http\Controllers\Admin\ReviewController as AdminReviewController;
+use \App\Http\Controllers\Admin\UserController as AdminUserController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -24,18 +25,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/test', function () {
-});
-
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', AdminIndexController::class)
-        ->name('index');
-
-    Route::resources([
-        'categories' => AdminCategoriesController::class,
-        'news' => AdminNewsController::class,
-        'orders' => AdminOrderController::class,
-        'reviews' => AdminReviewController::class,
-    ]);
 });
 
 Route::get('/', [WelcomeController::class, 'index'])
@@ -55,7 +44,24 @@ Route::prefix('news')->name('news.')->group(function () {
         ->name('category');
 });
 
-Route::resources([
-    'orders' => OrderController::class,
-    'reviews' => ReviewController::class,
-]);
+Route::middleware('auth')->group(function () {
+    Route::prefix('admin')->middleware('is_admin')->name('admin.')->group(function () {
+        Route::get('/', AdminIndexController::class)
+            ->name('index');
+
+        Route::resources([
+            'categories' => AdminCategoriesController::class,
+            'news' => AdminNewsController::class,
+            'orders' => AdminOrderController::class,
+            'reviews' => AdminReviewController::class,
+            'users' => AdminUserController::class,
+        ]);
+    });
+
+    Route::resources([
+        'orders' => OrderController::class,
+        'reviews' => ReviewController::class,
+    ]);
+});
+
+require __DIR__.'/auth.php';

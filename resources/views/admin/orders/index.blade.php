@@ -27,12 +27,12 @@
                     <td>{{ $order->email }}</td>
                     <td>{{ $order->description }}</td>
                     <td>{{ $order->created_at }}</td>
-                    <td>
-                        <a href="{{ route('admin.orders.edit', $order) }}">Ред.</a>
+                    <td class="col-1">
+                        <a class="btn btn-success mb-1 w-100" href="{{ route('admin.orders.edit', $order) }}">Ред.</a>
                         <form action="{{ route('admin.orders.destroy', $order) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Уд.</button>
+                            <button class="btn btn-danger w-100" type="submit">Уд.</button>
                         </form>
                     </td>
                 </tr>

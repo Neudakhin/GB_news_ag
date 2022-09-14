@@ -11,7 +11,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Название</th>
-                <th scope="col">Действия</th>
+                <th class="w-48" scope="col">Действия</th>
             </tr>
             </thead>
             <tbody>
@@ -19,12 +19,12 @@
                 <tr>
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->title }}</td>
-                    <td>
-                        <a href="{{ route('admin.categories.edit', $category) }}">Ред.</a>
+                    <td class="col-1">
+                        <a class="btn btn-success mb-1 w-100" href="{{ route('admin.categories.edit', $category) }}">Ред.</a>
                         <form action="{{ route('admin.categories.destroy', $category) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Уд.</button>
+                            <button class="btn btn-danger w-100" type="submit">Уд.</button>
                         </form>
                     </td>
                 </tr>
